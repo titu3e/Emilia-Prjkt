@@ -6,6 +6,7 @@ import shutil
 
 from PIL import Image, ImageOps
 
+
 async def black_border(client, message):
 
     try:
@@ -23,15 +24,11 @@ async def black_border(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -73,14 +70,13 @@ async def black_border(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def green_border(client, message):
 
@@ -99,15 +95,11 @@ async def green_border(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -149,14 +141,13 @@ async def green_border(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def blue_border(client, message):
 
@@ -175,15 +166,11 @@ async def blue_border(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -225,14 +212,13 @@ async def blue_border(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def red_border(client, message):
 
@@ -251,15 +237,11 @@ async def red_border(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -301,12 +283,9 @@ async def red_border(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
-

@@ -4,6 +4,7 @@ from emilia import DRAGONS
 
 from telethon.tl.types import ChannelParticipantsAdmins
 
+
 async def user_is_ban_protected(user_id: int, message):
 
     status = False
@@ -13,11 +14,8 @@ async def user_is_ban_protected(user_id: int, message):
         return True
 
     async for user in telethn.iter_participants(
-
         message.chat_id,
-
         filter=ChannelParticipantsAdmins,
-
     ):
 
         if user_id == user.id:
@@ -28,6 +26,7 @@ async def user_is_ban_protected(user_id: int, message):
 
     return status
 
+
 async def user_is_admin(user_id: int, message):
 
     status = False
@@ -37,11 +36,8 @@ async def user_is_admin(user_id: int, message):
         return True
 
     async for user in telethn.iter_participants(
-
         message.chat_id,
-
         filter=ChannelParticipantsAdmins,
-
     ):
 
         if user_id == user.id or user_id in DRAGONS:
@@ -51,17 +47,15 @@ async def user_is_admin(user_id: int, message):
             break
 
     return status
+
 
 async def is_user_admin(user_id: int, chat_id):
 
     status = False
 
     async for user in telethn.iter_participants(
-
         chat_id,
-
         filter=ChannelParticipantsAdmins,
-
     ):
 
         if user_id == user.id or user_id in DRAGONS:
@@ -71,6 +65,7 @@ async def is_user_admin(user_id: int, chat_id):
             break
 
     return status
+
 
 async def saitama_is_admin(chat_id: int):
 
@@ -79,11 +74,8 @@ async def saitama_is_admin(chat_id: int):
     saitama = await telethn.get_me()
 
     async for user in telethn.iter_participants(
-
         chat_id,
-
         filter=ChannelParticipantsAdmins,
-
     ):
 
         if saitama.id == user.id:
@@ -93,6 +85,7 @@ async def saitama_is_admin(chat_id: int):
             break
 
     return status
+
 
 async def is_user_in_chat(chat_id: int, user_id: int):
 
@@ -108,6 +101,7 @@ async def is_user_in_chat(chat_id: int, user_id: int):
 
     return status
 
+
 async def can_change_info(message):
 
     status = False
@@ -117,6 +111,7 @@ async def can_change_info(message):
         status = message.chat.admin_rights.change_info
 
     return status
+
 
 async def can_ban_users(message):
 
@@ -128,6 +123,7 @@ async def can_ban_users(message):
 
     return status
 
+
 async def can_pin_messages(message):
 
     status = False
@@ -137,6 +133,7 @@ async def can_pin_messages(message):
         status = message.chat.admin_rights.pin_messages
 
     return status
+
 
 async def can_invite_users(message):
 
@@ -148,6 +145,7 @@ async def can_invite_users(message):
 
     return status
 
+
 async def can_add_admins(message):
 
     status = False
@@ -157,6 +155,7 @@ async def can_add_admins(message):
         status = message.chat.admin_rights.add_admins
 
     return status
+
 
 async def can_delete_messages(message):
 
@@ -171,4 +170,3 @@ async def can_delete_messages(message):
         return status
 
     return False
-

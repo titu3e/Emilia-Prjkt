@@ -6,6 +6,7 @@ from pyrogram.types import ChatPermissions, Message
 
 from emilia import pbot as app
 
+
 async def member_permissions(chat_id: int, user_id: int):
 
     perms = []
@@ -49,4 +50,3 @@ async def member_permissions(chat_id: int, user_id: int):
         perms.append("can_manage_voice_chats")
 
     return perms
-

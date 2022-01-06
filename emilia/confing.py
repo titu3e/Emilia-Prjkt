@@ -3,10 +3,9 @@ from envparse import env
 from emilia import LOGGER
 
 DEFAULTS = {
-
     "LOAD_MODULES": True,
-
 }
+
 
 def get_str_key(name, required=False):
 
@@ -34,6 +33,7 @@ def get_str_key(name, required=False):
 
         return data
 
+
 def get_int_key(name, required=False):
 
     if name in DEFAULTS:
@@ -59,4 +59,3 @@ def get_int_key(name, required=False):
     else:
 
         return data
-

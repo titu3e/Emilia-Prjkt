@@ -35,4 +35,3 @@ try:
 except ServerSelectionTimeoutError:
 
     sys.exit(log.critical("Can't connect to mongodb! Exiting..."))
-

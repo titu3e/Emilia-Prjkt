@@ -18,6 +18,7 @@ from emilia.confing import get_str_key
 
 RemoveBG_API = get_str_key("REM_BG_API_KEY", required=False)
 
+
 async def rotate_90(client, message):
 
     try:
@@ -35,15 +36,11 @@ async def rotate_90(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -85,14 +82,13 @@ async def rotate_90(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def rotate_180(client, message):
 
@@ -111,15 +107,11 @@ async def rotate_180(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -161,14 +153,13 @@ async def rotate_180(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def rotate_270(client, message):
 
@@ -187,15 +178,11 @@ async def rotate_270(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -237,14 +224,13 @@ async def rotate_270(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 def resize_photo(photo: str, userid: str) -> io.BytesIO:
 
@@ -266,6 +252,7 @@ def resize_photo(photo: str, userid: str) -> io.BytesIO:
 
     return resized_photo
 
+
 async def round_sticker(client, message):
 
     try:
@@ -283,15 +270,11 @@ async def round_sticker(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -347,14 +330,13 @@ async def round_sticker(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def inverted(client, message):
 
@@ -373,15 +355,11 @@ async def inverted(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -423,14 +401,13 @@ async def inverted(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def removebg_plain(client, message):
 
@@ -451,29 +428,20 @@ async def removebg_plain(client, message):
             if not message.reply_to_message.empty:
 
                 msg = await message.reply_to_message.reply_text(
-
                     "Downloading image", quote=True
-
                 )
 
                 await client.download_media(
-
                     message=message.reply_to_message, file_name=download_location
-
                 )
 
                 await msg.edit("Processing Image...")
 
                 response = requests.post(
-
                     "https://api.remove.bg/v1.0/removebg",
-
                     files={"image_file": open(download_location, "rb")},
-
                     data={"size": "auto"},
-
                     headers={"X-Api-Key": RemoveBG_API},
-
                 )
 
                 if response.status_code == 200:
@@ -485,9 +453,7 @@ async def removebg_plain(client, message):
                 else:
 
                     await message.reply_to_message.reply_text(
-
                         "Check if your api is correct", quote=True
-
                     )
 
                     return
@@ -513,13 +479,9 @@ async def removebg_plain(client, message):
         else:
 
             await message.reply_to_message.reply_text(
-
                 "Get the api from https://www.remove.bg/b/background-removal-api and add in Config Var",
-
                 quote=True,
-
                 disable_web_page_preview=True,
-
             )
 
     except Exception as e:
@@ -535,14 +497,13 @@ async def removebg_plain(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def removebg_white(client, message):
 
@@ -563,29 +524,20 @@ async def removebg_white(client, message):
             if not message.reply_to_message.empty:
 
                 msg = await message.reply_to_message.reply_text(
-
                     "Downloading image", quote=True
-
                 )
 
                 await client.download_media(
-
                     message=message.reply_to_message, file_name=download_location
-
                 )
 
                 await msg.edit("Processing Image...")
 
                 response = requests.post(
-
                     "https://api.remove.bg/v1.0/removebg",
-
                     files={"image_file": open(download_location, "rb")},
-
                     data={"size": "auto"},
-
                     headers={"X-Api-Key": Config.RemoveBG_API},
-
                 )
 
                 if response.status_code == 200:
@@ -597,9 +549,7 @@ async def removebg_white(client, message):
                 else:
 
                     await message.reply_to_message.reply_text(
-
                         "Check if your api is correct", quote=True
-
                     )
 
                     return
@@ -625,13 +575,9 @@ async def removebg_white(client, message):
         else:
 
             await message.reply_to_message.reply_text(
-
                 "Get the api from https://www.remove.bg/b/background-removal-api and add in Config Var",
-
                 quote=True,
-
                 disable_web_page_preview=True,
-
             )
 
     except Exception as e:
@@ -647,14 +593,13 @@ async def removebg_white(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def removebg_sticker(client, message):
 
@@ -675,29 +620,20 @@ async def removebg_sticker(client, message):
             if not message.reply_to_message.empty:
 
                 msg = await message.reply_to_message.reply_text(
-
                     "Downloading image", quote=True
-
                 )
 
                 await client.download_media(
-
                     message=message.reply_to_message, file_name=download_location
-
                 )
 
                 await msg.edit("Processing Image...")
 
                 response = requests.post(
-
                     "https://api.remove.bg/v1.0/removebg",
-
                     files={"image_file": open(download_location, "rb")},
-
                     data={"size": "auto"},
-
                     headers={"X-Api-Key": RemoveBG_API},
-
                 )
 
                 if response.status_code == 200:
@@ -709,9 +645,7 @@ async def removebg_sticker(client, message):
                 else:
 
                     await message.reply_to_message.reply_text(
-
                         "Check if your api is correct", quote=True
-
                     )
 
                     return
@@ -737,13 +671,9 @@ async def removebg_sticker(client, message):
         else:
 
             await message.reply_to_message.reply_text(
-
                 "Get the api from https://www.remove.bg/b/background-removal-api and add in Config Var",
-
                 quote=True,
-
                 disable_web_page_preview=True,
-
             )
 
     except Exception as e:
@@ -759,12 +689,9 @@ async def removebg_sticker(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
-

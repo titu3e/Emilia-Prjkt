@@ -2,6 +2,7 @@ from emilia.mongo import client as db_x
 
 lydia = db_x["CHATBOT"]
 
+
 def add_chat(chat_id):
 
     stark = lydia.find_one({"chat_id": chat_id})
@@ -13,6 +14,7 @@ def add_chat(chat_id):
     lydia.insert_one({"chat_id": chat_id})
 
     return True
+
 
 def remove_chat(chat_id):
 
@@ -26,6 +28,7 @@ def remove_chat(chat_id):
 
     return True
 
+
 def get_all_chats():
 
     r = list(lydia.find())
@@ -36,6 +39,7 @@ def get_all_chats():
 
     return False
 
+
 def get_session(chat_id):
 
     stark = lydia.find_one({"chat_id": chat_id})
@@ -45,4 +49,3 @@ def get_session(chat_id):
         return False
 
     return stark
-

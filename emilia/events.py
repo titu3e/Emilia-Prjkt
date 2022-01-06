@@ -24,9 +24,10 @@ db = client["emiexrobot"]
 
 gbanned = db.gban
 
+
 def register(**args):
 
-    """ Registers a new message. """
+    """Registers a new message."""
 
     pattern = args.get("pattern", None)
 
@@ -46,9 +47,10 @@ def register(**args):
 
     return decorator
 
+
 def chataction(**args):
 
-    """ Registers chat actions. """
+    """Registers chat actions."""
 
     def decorator(func):
 
@@ -58,9 +60,10 @@ def chataction(**args):
 
     return decorator
 
+
 def userupdate(**args):
 
-    """ Registers user updates. """
+    """Registers user updates."""
 
     def decorator(func):
 
@@ -70,9 +73,10 @@ def userupdate(**args):
 
     return decorator
 
+
 def inlinequery(**args):
 
-    """ Registers inline query. """
+    """Registers inline query."""
 
     pattern = args.get("pattern", None)
 
@@ -88,9 +92,10 @@ def inlinequery(**args):
 
     return decorator
 
+
 def callbackquery(**args):
 
-    """ Registers inline query. """
+    """Registers inline query."""
 
     def decorator(func):
 
@@ -99,6 +104,7 @@ def callbackquery(**args):
         return func
 
     return decorator
+
 
 def bot(**args):
 
@@ -149,7 +155,6 @@ def bot(**args):
             pass
 
     def decorator(func):
-
         async def wrapper(check):
 
             if check.edit_date:
@@ -172,17 +177,15 @@ def bot(**args):
 
             if check.is_group:
 
-               if check.chat.megagroup:
+                if check.chat.megagroup:
 
-                  pass
+                    pass
 
-               else:
+                else:
 
-                  print("i don't work in small chats")
+                    print("i don't work in small chats")
 
-                  return
-
-                          
+                    return
 
             users = gbanned.find({})
 
@@ -217,6 +220,7 @@ def bot(**args):
         return wrapper
 
     return decorator
+
 
 def emilia(**args):
 
@@ -263,4 +267,3 @@ def emilia(**args):
         if not ignore_unsafe:
 
             args["pattern"] = args["pattern"].replace("^.", unsafe_pattern, 1)
-

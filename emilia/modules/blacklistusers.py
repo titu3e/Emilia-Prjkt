@@ -9,7 +9,7 @@ from emilia import (
     TIGERS,
     WOLVES,
     dispatcher,
-) 
+)
 from emilia.modules.helper_funcs.chat_status import dev_plus
 from emilia.modules.helper_funcs.extraction import (
     extract_user,

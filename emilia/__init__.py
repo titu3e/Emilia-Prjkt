@@ -40,33 +40,32 @@ from ptbcontrib.postgres_persistence import PostgresPersistence
 
 StartTime = time.time()
 
+
 def get_user_list(__init__, key):
 
     with open("{}/emilia/{}".format(os.getcwd(), __init__), "r") as json_file:
 
         return json.load(json_file)[key]
 
+
 # enable logging
 
 FORMAT = "[emilia] %(message)s"
 
 logging.basicConfig(
-
     handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
-
     level=logging.INFO,
-
     format=FORMAT,
-
     datefmt="[%X]",
-
 )
 
 logging.getLogger("pyrogram").setLevel(logging.INFO)
 
-logging.getLogger('ptbcontrib.postgres_persistence.postgrespersistence').setLevel(logging.WARNING)
+logging.getLogger("ptbcontrib.postgres_persistence.postgrespersistence").setLevel(
+    logging.WARNING
+)
 
-LOGGER = logging.getLogger('[emilia]')
+LOGGER = logging.getLogger("[emilia]")
 
 LOGGER.info("Emilia is starting. | An Emilia-Prjkt. | Licensed under GPLv3.")
 
@@ -79,9 +78,7 @@ LOGGER.info("Project maintained by: github.com/ZenitsuID (t.me/ZenitsuID)")
 if sys.version_info[0] < 3 or sys.version_info[1] < 9:
 
     LOGGER.error(
-
         "You MUST have a python version of at least 3.6! Multiple features depend on this. Bot quitting."
-
     )
 
     sys.exit(1)
@@ -126,7 +123,7 @@ if ENV:
 
         WOLVES = {int(x) for x in os.environ.get("WOLVES", "").split()}
 
-    except ValueError: 
+    except ValueError:
 
         raise Exception("Your whitelisted users list does not contain valid integers.")
 
@@ -427,17 +424,11 @@ except BaseException:
     sys.exit(1)
 
 pbot = Client(
-
     ":memory:",
-
     api_id=API_ID,
-
     api_hash=API_HASH,
-
     bot_token=TOKEN,
-
     workers=min(32, os.cpu_count() + 4),
-
 )
 
 apps = []
@@ -445,6 +436,7 @@ apps = []
 apps.append(pbot)
 
 loop = asyncio.get_event_loop()
+
 
 async def get_entity(client, entity):
 
@@ -496,6 +488,7 @@ async def get_entity(client, entity):
 
     return entity, entity_client
 
+
 async def eor(msg: Message, **kwargs):
 
     func = msg.edit_text if msg.from_user.is_self else msg.reply
@@ -503,6 +496,7 @@ async def eor(msg: Message, **kwargs):
     spec = getfullargspec(func.__wrapped__).args
 
     return await func(**{k: v for k, v in kwargs.items() if k in spec})
+
 
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
 
@@ -517,13 +511,9 @@ TIGERS = list(TIGERS)
 # Load at end to ensure all prev variables have been set
 
 from emilia.modules.helper_funcs.handlers import (
-
     CustomCommandHandler,
-
     CustomMessageHandler,
-
     CustomRegexHandler,
-
 )
 
 # make sure the regex handler can take extra kwargs
@@ -533,4 +523,3 @@ tg.RegexHandler = CustomRegexHandler
 tg.CommandHandler = CustomCommandHandler
 
 tg.MessageHandler = CustomMessageHandler
-

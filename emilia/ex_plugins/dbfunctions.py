@@ -56,6 +56,7 @@ flood_toggle_db = db.flood_toggle
 
 rssdb = db.rss
 
+
 def obj_to_str(obj):
 
     if not obj:
@@ -66,11 +67,13 @@ def obj_to_str(obj):
 
     return string
 
+
 def str_to_obj(string: str):
 
     obj = pickle.loads(codecs.decode(string.encode(), "base64"))
 
     return obj
+
 
 async def get_notes_count() -> dict:
 
@@ -94,6 +97,7 @@ async def get_notes_count() -> dict:
 
     return {"chats_count": chats_count, "notes_count": notes_count}
 
+
 async def _get_notes(chat_id: int) -> Dict[str, int]:
 
     _notes = await notesdb.find_one({"chat_id": chat_id})
@@ -104,6 +108,7 @@ async def _get_notes(chat_id: int) -> Dict[str, int]:
 
     return _notes["notes"]
 
+
 async def get_note_names(chat_id: int) -> List[str]:
 
     _notes = []
@@ -113,6 +118,7 @@ async def get_note_names(chat_id: int) -> List[str]:
         _notes.append(note)
 
     return _notes
+
 
 async def get_note(chat_id: int, name: str) -> Union[bool, dict]:
 
@@ -126,6 +132,7 @@ async def get_note(chat_id: int, name: str) -> Union[bool, dict]:
 
     return False
 
+
 async def save_note(chat_id: int, name: str, note: dict):
 
     name = name.lower().strip()
@@ -135,10 +142,9 @@ async def save_note(chat_id: int, name: str, note: dict):
     _notes[name] = note
 
     await notesdb.update_one(
-
         {"chat_id": chat_id}, {"$set": {"notes": _notes}}, upsert=True
-
     )
+
 
 async def delete_note(chat_id: int, name: str) -> bool:
 
@@ -151,18 +157,15 @@ async def delete_note(chat_id: int, name: str) -> bool:
         del notesd[name]
 
         await notesdb.update_one(
-
             {"chat_id": chat_id},
-
             {"$set": {"notes": notesd}},
-
             upsert=True,
-
         )
 
         return True
 
     return False
+
 
 async def get_filters_count() -> dict:
 
@@ -185,12 +188,10 @@ async def get_filters_count() -> dict:
         chats_count += 1
 
     return {
-
         "chats_count": chats_count,
-
         "filters_count": filters_count,
-
     }
+
 
 async def _get_filters(chat_id: int) -> Dict[str, int]:
 
@@ -202,6 +203,7 @@ async def _get_filters(chat_id: int) -> Dict[str, int]:
 
     return _filters["filters"]
 
+
 async def get_filters_names(chat_id: int) -> List[str]:
 
     _filters = []
@@ -211,6 +213,7 @@ async def get_filters_names(chat_id: int) -> List[str]:
         _filters.append(_filter)
 
     return _filters
+
 
 async def get_filter(chat_id: int, name: str) -> Union[bool, dict]:
 
@@ -224,6 +227,7 @@ async def get_filter(chat_id: int, name: str) -> Union[bool, dict]:
 
     return False
 
+
 async def save_filter(chat_id: int, name: str, _filter: dict):
 
     name = name.lower().strip()
@@ -233,14 +237,11 @@ async def save_filter(chat_id: int, name: str, _filter: dict):
     _filters[name] = _filter
 
     await filtersdb.update_one(
-
         {"chat_id": chat_id},
-
         {"$set": {"filters": _filters}},
-
         upsert=True,
-
     )
+
 
 async def delete_filter(chat_id: int, name: str) -> bool:
 
@@ -253,18 +254,15 @@ async def delete_filter(chat_id: int, name: str) -> bool:
         del filtersd[name]
 
         await filtersdb.update_one(
-
             {"chat_id": chat_id},
-
             {"$set": {"filters": filtersd}},
-
             upsert=True,
-
         )
 
         return True
 
     return False
+
 
 async def int_to_alpha(user_id: int) -> str:
 
@@ -279,6 +277,7 @@ async def int_to_alpha(user_id: int) -> str:
         text += alphabet[int(i)]
 
     return text
+
 
 async def alpha_to_int(user_id_alphabet: str) -> int:
 
@@ -295,6 +294,7 @@ async def alpha_to_int(user_id_alphabet: str) -> int:
     user_id = int(user_id)
 
     return user_id
+
 
 async def get_warns_count() -> dict:
 
@@ -318,6 +318,7 @@ async def get_warns_count() -> dict:
 
     return {"chats_count": chats_count, "warns_count": warns_count}
 
+
 async def get_warns(chat_id: int) -> Dict[str, int]:
 
     warns = await warnsdb.find_one({"chat_id": chat_id})
@@ -327,6 +328,7 @@ async def get_warns(chat_id: int) -> Dict[str, int]:
         return {}
 
     return warns["warns"]
+
 
 async def get_warn(chat_id: int, name: str) -> Union[bool, dict]:
 
@@ -338,6 +340,7 @@ async def get_warn(chat_id: int, name: str) -> Union[bool, dict]:
 
         return warns[name]
 
+
 async def add_warn(chat_id: int, name: str, warn: dict):
 
     name = name.lower().strip()
@@ -347,10 +350,9 @@ async def add_warn(chat_id: int, name: str, warn: dict):
     warns[name] = warn
 
     await warnsdb.update_one(
-
         {"chat_id": chat_id}, {"$set": {"warns": warns}}, upsert=True
-
     )
+
 
 async def remove_warns(chat_id: int, name: str) -> bool:
 
@@ -363,18 +365,15 @@ async def remove_warns(chat_id: int, name: str) -> bool:
         del warnsd[name]
 
         await warnsdb.update_one(
-
             {"chat_id": chat_id},
-
             {"$set": {"warns": warnsd}},
-
             upsert=True,
-
         )
 
         return True
 
     return False
+
 
 async def is_nsfw_on(chat_id: int) -> bool:
 
@@ -386,6 +385,7 @@ async def is_nsfw_on(chat_id: int) -> bool:
 
     return False
 
+
 async def nsfw_on(chat_id: int):
 
     is_nsfw = is_nsfw_on(chat_id)
@@ -395,6 +395,7 @@ async def nsfw_on(chat_id: int):
         return
 
     return nsfwdb.delete_one({"chat_id": chat_id})
+
 
 async def nsfw_off(chat_id: int):
 
@@ -406,6 +407,7 @@ async def nsfw_off(chat_id: int):
 
     return nsfwdb.insert_one({"chat_id": chat_id})
 
+
 async def is_served_chat(chat_id: int) -> bool:
 
     chat = await chatsdb.find_one({"chat_id": chat_id})
@@ -415,6 +417,7 @@ async def is_served_chat(chat_id: int) -> bool:
         return False
 
     return True
+
 
 async def get_served_chats() -> list:
 
@@ -432,6 +435,7 @@ async def get_served_chats() -> list:
 
     return chats_list
 
+
 async def add_served_chat(chat_id: int):
 
     is_served = await is_served_chat(chat_id)
@@ -441,6 +445,7 @@ async def add_served_chat(chat_id: int):
         return
 
     return await chatsdb.insert_one({"chat_id": chat_id})
+
 
 async def remove_served_chat(chat_id: int):
 
@@ -452,6 +457,7 @@ async def remove_served_chat(chat_id: int):
 
     return await chatsdb.delete_one({"chat_id": chat_id})
 
+
 async def is_served_user(user_id: int) -> bool:
 
     user = await usersdb.find_one({"user_id": user_id})
@@ -461,6 +467,7 @@ async def is_served_user(user_id: int) -> bool:
         return False
 
     return True
+
 
 async def get_served_users() -> list:
 
@@ -478,6 +485,7 @@ async def get_served_users() -> list:
 
     return users_list
 
+
 async def add_served_user(user_id: int):
 
     is_served = await is_served_user(user_id)
@@ -488,6 +496,7 @@ async def add_served_user(user_id: int):
 
     return await usersdb.insert_one({"user_id": user_id})
 
+
 async def get_gbans_count() -> int:
 
     users = gbansdb.find({"user_id": {"$gt": 0}})
@@ -495,6 +504,7 @@ async def get_gbans_count() -> int:
     users = await users.to_list(length=100000)
 
     return len(users)
+
 
 async def is_gbanned_user(user_id: int) -> bool:
 
@@ -506,6 +516,7 @@ async def is_gbanned_user(user_id: int) -> bool:
 
     return True
 
+
 async def add_gban_user(user_id: int):
 
     is_gbanned = await is_gbanned_user(user_id)
@@ -515,6 +526,7 @@ async def add_gban_user(user_id: int):
         return
 
     return gbansdb.insert_one({"user_id": user_id})
+
 
 async def remove_gban_user(user_id: int):
 
@@ -526,6 +538,7 @@ async def remove_gban_user(user_id: int):
 
     return gbansdb.delete_one({"user_id": user_id})
 
+
 async def _get_lovers(chat_id: int):
 
     lovers = coupledb.find_one({"chat_id": chat_id})
@@ -535,6 +548,7 @@ async def _get_lovers(chat_id: int):
         return {}
 
     return lovers["couple"]
+
 
 async def get_couple(chat_id: int, date: str):
 
@@ -546,6 +560,7 @@ async def get_couple(chat_id: int, date: str):
 
     return False
 
+
 async def save_couple(chat_id: int, date: str, couple: dict):
 
     lovers = await _get_lovers(chat_id)
@@ -553,14 +568,11 @@ async def save_couple(chat_id: int, date: str, couple: dict):
     lovers[date] = couple
 
     coupledb.update_one(
-
         {"chat_id": chat_id},
-
         {"$set": {"couple": lovers}},
-
         upsert=True,
-
     )
+
 
 async def is_captcha_on(chat_id: int) -> bool:
 
@@ -572,6 +584,7 @@ async def is_captcha_on(chat_id: int) -> bool:
 
     return False
 
+
 async def captcha_on(chat_id: int):
 
     is_captcha = await is_captcha_on(chat_id)
@@ -581,6 +594,7 @@ async def captcha_on(chat_id: int):
         return
 
     return captchadb.delete_one({"chat_id": chat_id})
+
 
 async def captcha_off(chat_id: int):
 
@@ -592,27 +606,24 @@ async def captcha_off(chat_id: int):
 
     return captchadb.insert_one({"chat_id": chat_id})
 
+
 async def has_solved_captcha_once(chat_id: int, user_id: int):
 
     has_solved = await solved_captcha_db.find_one(
-
         {"chat_id": chat_id, "user_id": user_id}
-
     )
 
     return bool(has_solved)
 
+
 async def save_captcha_solved(chat_id: int, user_id: int):
 
     return await solved_captcha_db.update_one(
-
         {"chat_id": chat_id},
-
         {"$set": {"user_id": user_id}},
-
         upsert=True,
-
     )
+
 
 async def is_antiservice_on(chat_id: int) -> bool:
 
@@ -624,6 +635,7 @@ async def is_antiservice_on(chat_id: int) -> bool:
 
     return False
 
+
 async def antiservice_on(chat_id: int):
 
     is_antiservice = await is_antiservice_on(chat_id)
@@ -633,6 +645,7 @@ async def antiservice_on(chat_id: int):
         return
 
     return await antiservicedb.delete_one({"chat_id": chat_id})
+
 
 async def antiservice_off(chat_id: int):
 
@@ -644,6 +657,7 @@ async def antiservice_off(chat_id: int):
 
     return await antiservicedb.insert_one({"chat_id": chat_id})
 
+
 async def is_pmpermit_approved(user_id: int) -> bool:
 
     user = pmpermitdb.find_one({"user_id": user_id})
@@ -653,6 +667,7 @@ async def is_pmpermit_approved(user_id: int) -> bool:
         return False
 
     return True
+
 
 async def approve_pmpermit(user_id: int):
 
@@ -664,6 +679,7 @@ async def approve_pmpermit(user_id: int):
 
     return pmpermitdb.insert_one({"user_id": user_id})
 
+
 async def disapprove_pmpermit(user_id: int):
 
     is_pmpermit = await is_pmpermit_approved(user_id)
@@ -673,6 +689,7 @@ async def disapprove_pmpermit(user_id: int):
         return
 
     return pmpermitdb.delete_one({"user_id": user_id})
+
 
 async def get_welcome(chat_id: int) -> str:
 
@@ -684,17 +701,18 @@ async def get_welcome(chat_id: int) -> str:
 
     return text["text"]
 
+
 async def set_welcome(chat_id: int, text: str):
 
     return await welcomedb.update_one(
-
         {"chat_id": chat_id}, {"$set": {"text": text}}, upsert=True
-
     )
+
 
 async def del_welcome(chat_id: int):
 
     return await welcomedb.delete_one({"chat_id": chat_id})
+
 
 async def update_captcha_cache(captcha_dict):
 
@@ -707,14 +725,11 @@ async def update_captcha_cache(captcha_dict):
         return
 
     captcha_cachedb.update_one(
-
         {"captcha": "cache"},
-
         {"$set": {"pickled": pickle}},
-
         upsert=True,
-
     )
+
 
 async def get_captcha_cache():
 
@@ -725,6 +740,7 @@ async def get_captcha_cache():
         return []
 
     return str_to_obj(cache["pickled"])
+
 
 async def get_blacklist_filters_count() -> dict:
 
@@ -747,12 +763,10 @@ async def get_blacklist_filters_count() -> dict:
         chats_count += 1
 
     return {
-
         "chats_count": chats_count,
-
         "filters_count": filters_count,
-
     }
+
 
 async def get_blacklisted_words(chat_id: int) -> List[str]:
 
@@ -764,6 +778,7 @@ async def get_blacklisted_words(chat_id: int) -> List[str]:
 
     return _filters["filters"]
 
+
 async def save_blacklist_filter(chat_id: int, word: str):
 
     word = word.lower().strip()
@@ -773,14 +788,11 @@ async def save_blacklist_filter(chat_id: int, word: str):
     _filters.append(word)
 
     await blacklist_filtersdb.update_one(
-
         {"chat_id": chat_id},
-
         {"$set": {"filters": _filters}},
-
         upsert=True,
-
     )
+
 
 async def delete_blacklist_filter(chat_id: int, word: str) -> bool:
 
@@ -793,40 +805,32 @@ async def delete_blacklist_filter(chat_id: int, word: str) -> bool:
         filtersd.remove(word)
 
         await blacklist_filtersdb.update_one(
-
             {"chat_id": chat_id},
-
             {"$set": {"filters": filtersd}},
-
             upsert=True,
-
         )
 
         return True
 
     return False
 
+
 async def activate_pipe(from_chat_id: int, to_chat_id: int, fetcher: str):
 
     pipes = await show_pipes()
 
     pipe = {
-
         "from_chat_id": from_chat_id,
-
         "to_chat_id": to_chat_id,
-
         "fetcher": fetcher,
-
     }
 
     pipes.append(pipe)
 
     return await pipesdb.update_one(
-
         {"pipe": "pipe"}, {"$set": {"pipes": pipes}}, upsert=True
-
     )
+
 
 async def deactivate_pipe(from_chat_id: int, to_chat_id: int):
 
@@ -838,35 +842,23 @@ async def deactivate_pipe(from_chat_id: int, to_chat_id: int):
 
     for pipe in pipes:
 
-        if (
-
-            pipe["from_chat_id"] == from_chat_id
-
-            and pipe["to_chat_id"] == to_chat_id
-
-        ):
+        if pipe["from_chat_id"] == from_chat_id and pipe["to_chat_id"] == to_chat_id:
 
             pipes.remove(pipe)
 
     return await pipesdb.update_one(
-
         {"pipe": "pipe"}, {"$set": {"pipes": pipes}}, upsert=True
-
     )
+
 
 async def is_pipe_active(from_chat_id: int, to_chat_id: int) -> bool:
 
     for pipe in await show_pipes():
 
-        if (
-
-            pipe["from_chat_id"] == from_chat_id
-
-            and pipe["to_chat_id"] == to_chat_id
-
-        ):
+        if pipe["from_chat_id"] == from_chat_id and pipe["to_chat_id"] == to_chat_id:
 
             return True
+
 
 async def show_pipes() -> list:
 
@@ -878,6 +870,7 @@ async def show_pipes() -> list:
 
     return pipes["pipes"]
 
+
 async def get_sudoers() -> list:
 
     sudoers = await sudoersdb.find_one({"sudo": "sudo"})
@@ -888,6 +881,7 @@ async def get_sudoers() -> list:
 
     return sudoers["sudoers"]
 
+
 async def add_sudo(user_id: int) -> bool:
 
     sudoers = await get_sudoers()
@@ -895,12 +889,11 @@ async def add_sudo(user_id: int) -> bool:
     sudoers.append(user_id)
 
     await sudoersdb.update_one(
-
         {"sudo": "sudo"}, {"$set": {"sudoers": sudoers}}, upsert=True
-
     )
 
     return True
+
 
 async def remove_sudo(user_id: int) -> bool:
 
@@ -909,18 +902,18 @@ async def remove_sudo(user_id: int) -> bool:
     sudoers.remove(user_id)
 
     await sudoersdb.update_one(
-
         {"sudo": "sudo"}, {"$set": {"sudoers": sudoers}}, upsert=True
-
     )
 
     return True
+
 
 async def blacklisted_chats() -> list:
 
     chats = blacklist_chatdb.find({"chat_id": {"$lt": 0}})
 
     return [chat["chat_id"] for chat in await chats.to_list(length=1000000000)]
+
 
 async def blacklist_chat(chat_id: int) -> bool:
 
@@ -932,6 +925,7 @@ async def blacklist_chat(chat_id: int) -> bool:
 
     return False
 
+
 async def whitelist_chat(chat_id: int) -> bool:
 
     if await blacklist_chatdb.find_one({"chat_id": chat_id}):
@@ -942,27 +936,20 @@ async def whitelist_chat(chat_id: int) -> bool:
 
     return False
 
+
 async def start_restart_stage(chat_id: int, message_id: int):
 
     await restart_stagedb.update_one(
-
         {"something": "something"},
-
         {
-
             "$set": {
-
                 "chat_id": chat_id,
-
                 "message_id": message_id,
-
             }
-
         },
-
         upsert=True,
-
     )
+
 
 async def clean_restart_stage() -> dict:
 
@@ -975,12 +962,10 @@ async def clean_restart_stage() -> dict:
     await restart_stagedb.delete_one({"something": "something"})
 
     return {
-
         "chat_id": data["chat_id"],
-
         "message_id": data["message_id"],
-
     }
+
 
 async def is_flood_on(chat_id: int) -> bool:
 
@@ -992,6 +977,7 @@ async def is_flood_on(chat_id: int) -> bool:
 
     return False
 
+
 async def flood_on(chat_id: int):
 
     is_flood = await is_flood_on(chat_id)
@@ -1001,6 +987,7 @@ async def flood_on(chat_id: int):
         return
 
     return await flood_toggle_db.delete_one({"chat_id": chat_id})
+
 
 async def flood_off(chat_id: int):
 
@@ -1012,37 +999,34 @@ async def flood_off(chat_id: int):
 
     return await flood_toggle_db.insert_one({"chat_id": chat_id})
 
+
 async def add_rss_feed(chat_id: int, url: str, last_title: str):
 
     return await rssdb.update_one(
-
         {"chat_id": chat_id},
-
         {"$set": {"url": url, "last_title": last_title}},
-
         upsert=True,
-
     )
+
 
 async def remove_rss_feed(chat_id: int):
 
     return await rssdb.delete_one({"chat_id": chat_id})
 
+
 async def update_rss_feed(chat_id: int, last_title: str):
 
     return await rssdb.update_one(
-
         {"chat_id": chat_id},
-
         {"$set": {"last_title": last_title}},
-
         upsert=True,
-
     )
+
 
 async def is_rss_active(chat_id: int) -> bool:
 
     return await rssdb.find_one({"chat_id": chat_id})
+
 
 async def get_rss_feeds() -> list:
 
@@ -1059,20 +1043,15 @@ async def get_rss_feeds() -> list:
     for feed in feeds:
 
         data.append(
-
             dict(
-
                 chat_id=feed["chat_id"],
-
                 url=feed["url"],
-
                 last_title=feed["last_title"],
-
             )
-
         )
 
     return data
+
 
 async def get_rss_feeds_count() -> int:
 
@@ -1081,4 +1060,3 @@ async def get_rss_feeds_count() -> int:
     feeds = await feeds.to_list(length=10000000)
 
     return len(feeds)
-

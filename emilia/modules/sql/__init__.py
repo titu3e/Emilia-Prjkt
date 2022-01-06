@@ -6,6 +6,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 from emilia import DB_URL
 
+
 def start() -> scoped_session:
 
     engine = create_engine(DB_URL, client_encoding="utf8")
@@ -16,7 +17,7 @@ def start() -> scoped_session:
 
     return scoped_session(sessionmaker(bind=engine, autoflush=True))
 
+
 BASE = declarative_base()
 
 SESSION = start()
-

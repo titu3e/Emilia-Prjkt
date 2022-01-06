@@ -10,6 +10,7 @@ import numpy as np
 
 from PIL import Image, ImageDraw, ImageEnhance
 
+
 async def circle_with_bg(client, message):
 
     try:
@@ -27,15 +28,11 @@ async def circle_with_bg(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -89,14 +86,13 @@ async def circle_with_bg(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def circle_without_bg(client, message):
 
@@ -115,15 +111,11 @@ async def circle_without_bg(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -177,14 +169,13 @@ async def circle_without_bg(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def sticker(client, message):
 
@@ -203,15 +194,11 @@ async def sticker(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -247,14 +234,13 @@ async def sticker(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 def add_corners(im, rad):
 
@@ -280,6 +266,7 @@ def add_corners(im, rad):
 
     return im
 
+
 async def edge_curved(client, message):
 
     try:
@@ -297,15 +284,11 @@ async def edge_curved(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -347,14 +330,13 @@ async def edge_curved(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 async def contrast(client, message):
 
@@ -373,15 +355,11 @@ async def contrast(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -423,14 +401,13 @@ async def contrast(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 def sepia(img):
 
@@ -468,6 +445,7 @@ def sepia(img):
 
     return new_img
 
+
 async def sepia_mode(client, message):
 
     try:
@@ -485,15 +463,11 @@ async def sepia_mode(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -535,18 +509,18 @@ async def sepia_mode(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
 
+
 def dodgeV2(x, y):
 
     return cv2.divide(x, 255 - y, scale=256)
+
 
 async def pencil(client, message):
 
@@ -565,15 +539,11 @@ async def pencil(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -621,14 +591,13 @@ async def pencil(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
+
 
 def color_quantization(img, k):
 
@@ -637,9 +606,7 @@ def color_quantization(img, k):
     criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 20, 1.0)
 
     _, label, center = cv2.kmeans(
-
         data, k, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS
-
     )
 
     center = np.uint8(center)
@@ -649,6 +616,7 @@ def color_quantization(img, k):
     result = result.reshape(img.shape)
 
     return result
+
 
 async def cartoon(client, message):
 
@@ -667,15 +635,11 @@ async def cartoon(client, message):
         if not message.reply_to_message.empty:
 
             msg = await message.reply_to_message.reply_text(
-
                 "Downloading image", quote=True
-
             )
 
             a = await client.download_media(
-
                 message=message.reply_to_message, file_name=download_location
-
             )
 
             await msg.edit("Processing Image...")
@@ -687,9 +651,7 @@ async def cartoon(client, message):
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
             edges = cv2.adaptiveThreshold(
-
                 gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 5
-
             )
 
             color = cv2.bilateralFilter(img, d=9, sigmaColor=200, sigmaSpace=200)
@@ -731,12 +693,9 @@ async def cartoon(client, message):
             try:
 
                 await message.reply_to_message.reply_text(
-
                     "Something went wrong!", quote=True
-
                 )
 
             except Exception:
 
                 return
-

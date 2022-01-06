@@ -2,6 +2,7 @@ from emilia import LOAD, NO_LOAD, LOGGER
 
 import sys
 
+
 def __list_all_modules():
 
     from os.path import dirname, basename, isfile
@@ -13,13 +14,9 @@ def __list_all_modules():
     mod_paths = glob.glob(dirname(__file__) + "/*.py")
 
     all_modules = [
-
         basename(f)[:-3]
-
         for f in mod_paths
-
         if isfile(f) and f.endswith(".py") and not f.endswith("__init__.py")
-
     ]
 
     if LOAD or NO_LOAD:
@@ -29,11 +26,8 @@ def __list_all_modules():
         if to_load:
 
             if not all(
-
                 any(mod == module_name for module_name in all_modules)
-
                 for mod in to_load
-
             ):
 
                 LOGGER.error("[Charlotte] Invalid loadorder names. Quitting.")
@@ -58,9 +52,9 @@ def __list_all_modules():
 
     return all_modules
 
+
 ALL_MODULES = __list_all_modules()
 
 LOGGER.info("[Charlotte] Modules to load: %s", str(ALL_MODULES))
 
 __all__ = ALL_MODULES + ["ALL_MODULES"]
-
